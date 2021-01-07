@@ -29,7 +29,9 @@ namespace HessTrucks.Services.TruckCatalog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TruckCatalogDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString")));
+               options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString"))
+                      .EnableSensitiveDataLogging()
+                      );
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

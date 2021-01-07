@@ -13,7 +13,8 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
     {
         public TruckCatalogDbContext(DbContextOptions<TruckCatalogDbContext> options )
             : base(options)
-        { 
+        {
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<Truck> Trucks { get; set; }
