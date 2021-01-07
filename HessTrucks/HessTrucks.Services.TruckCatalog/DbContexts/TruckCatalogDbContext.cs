@@ -18,9 +18,15 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
 
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+     //       base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Truck>()
+                .HasMany(t => t.Photos)
+                .WithOne(prop => prop.Truck)
+                .IsRequired();
         }
     }
 }

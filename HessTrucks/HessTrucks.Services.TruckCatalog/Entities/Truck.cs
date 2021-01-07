@@ -17,8 +17,7 @@ namespace HessTrucks.Services.TruckCatalog.Entities
         public bool Hidden { get; set; }
         public bool Damaged { get; set; }
         public string DefaultPhotoPath { get; set; }
-
-
+        
         public virtual ICollection<Photo> Photos { get; set; }
     }
 }
