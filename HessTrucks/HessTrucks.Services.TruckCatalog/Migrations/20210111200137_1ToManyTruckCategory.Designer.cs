@@ -4,14 +4,16 @@ using HessTrucks.Services.TruckCatalog.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HessTrucks.Services.TruckCatalog.Migrations
 {
     [DbContext(typeof(TruckCatalogDbContext))]
-    partial class TruckCatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210111200137_1ToManyTruckCategory")]
+    partial class _1ToManyTruckCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

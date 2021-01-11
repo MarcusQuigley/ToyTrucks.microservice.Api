@@ -19,6 +19,7 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
 
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,10 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
                 .HasMany(t => t.Photos)
                 .WithOne(prop => prop.Truck)
                 .IsRequired();
+
+            modelBuilder.Entity<TruckCategory>()
+                .HasKey(tc => new { tc.TruckId, tc.CategoryId });
+
         }
     }
 }
