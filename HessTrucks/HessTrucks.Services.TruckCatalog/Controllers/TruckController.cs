@@ -1,6 +1,7 @@
 ﻿using HessTrucks.Services.TruckCatalog.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace HessTrucks.Services.TruckCatalog.Controllers
     public class TruckController : ControllerBase
     {
         private readonly ITruckRepository _truckService;
+        private readonly ILogger<TruckController> _logger;
 
-        public TruckController(ITruckRepository truckService)
+        public TruckController(ITruckRepository truckService, ILogger<TruckController> logger)
         {
             _truckService = truckService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -30,9 +33,18 @@ namespace HessTrucks.Services.TruckCatalog.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Trucks()
+        [Route("TruckControllerLoggingLevels")]
+        public async Task<ActionResult> TruckControllerLoggingLevels()
         {
-            return Ok(await _truckService.GetTrucks( ));
+             
+            _logger.LogTrace("TRACE!");
+            _logger.LogDebug("DEBUG!");
+            _logger.LogInformation("INFO!");
+            _logger.LogWarning("WARN!");
+            _logger.LogError("ERROR!");
+            _logger.LogCritical("Critical!");
+            return Ok();
+          //  return Ok(await _truckService.GetTrucks( ));
 
 
         }
