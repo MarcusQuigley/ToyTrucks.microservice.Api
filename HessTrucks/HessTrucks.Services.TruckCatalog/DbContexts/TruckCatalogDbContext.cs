@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace HessTrucks.Services.TruckCatalog.DbContexts
 {
     public class TruckCatalogDbContext : DbContext
@@ -23,7 +24,12 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-     //       base.OnModelCreating(modelBuilder);
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                       .SelectMany(t => t.GetProperties())
+                       .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                property.SetColumnType("decimal(18,2)");
+            }
 
             //modelBuilder.Entity<Truck>()
             //    .HasMany(t => t.Photos)
