@@ -25,13 +25,13 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
         {
      //       base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Truck>()
-                .HasMany(t => t.Photos)
-                .WithOne(prop => prop.Truck)
-                .IsRequired();
+            //modelBuilder.Entity<Truck>()
+            //    .HasMany(t => t.Photos)
+            //    .WithOne(prop => prop.Truck)
+            //    .IsRequired();
 
-            modelBuilder.Entity<TruckCategory>()
-                .HasKey(tc => new { tc.TruckId, tc.CategoryId });
+            //modelBuilder.Entity<TruckCategory>()
+            //    .HasKey(tc => new { tc.TruckId, tc.CategoryId });
 
         }
     }

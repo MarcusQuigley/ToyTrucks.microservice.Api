@@ -7,6 +7,11 @@ namespace HessTrucks.Services.TruckCatalog.Entities
 {
     public class Truck
     {
+        public Truck()
+        {
+            Photos = new List<Photo>();
+            Categories = new List<Category>();
+        }
         public Guid TruckId { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
@@ -19,6 +24,6 @@ namespace HessTrucks.Services.TruckCatalog.Entities
         public string DefaultPhotoPath { get; set; }
         
         public virtual ICollection<Photo> Photos { get; set; }
-        public virtual ICollection<TruckCategory> TruckCategories { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

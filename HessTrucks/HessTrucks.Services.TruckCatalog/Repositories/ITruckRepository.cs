@@ -9,6 +9,8 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
     public interface ITruckRepository
     {
         Task<IEnumerable<Truck>> GetTrucks();
+        Task<IEnumerable<Truck>> GetTrucksByCategoryId(int categoryId);
         Task<Truck> GetTruckById(Guid truckId);
+        
     }
 }

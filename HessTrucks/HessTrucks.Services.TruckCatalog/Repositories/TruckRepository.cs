@@ -20,17 +20,25 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
         public async Task<Truck> GetTruckById(Guid truckId)
         {
             var truck = await _context.Trucks
-                                  .Include(t=>t.Photos)
+                                  .Include(t => t.Photos)
                                   .Where(t => t.TruckId == truckId)
                                   .FirstOrDefaultAsync();
-            return truck;                                       
+            return truck;
+        }
+
+        public async Task<IEnumerable<Truck>> GetTrucksByCategoryId(int categoryId)
+        {
+            return await _context.Trucks
+                             .Include(t => t.Photos)
+                             .Include(t => t.Categories.Where(c => c.CategoryId == categoryId))
+                             .ToListAsync();
         }
 
         public async Task<IEnumerable<Truck>> GetTrucks()
         {
             return await _context.Trucks
-                                    .Include(t => t.Photos)
-                                    .ToListAsync();
+                            .Include(t => t.Photos)
+                            .ToListAsync();
 
         }
     }

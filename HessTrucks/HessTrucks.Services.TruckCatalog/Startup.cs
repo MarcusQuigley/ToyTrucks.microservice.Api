@@ -1,4 +1,5 @@
 using HessTrucks.Services.TruckCatalog.DbContexts;
+using HessTrucks.Services.TruckCatalog.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,12 @@ namespace HessTrucks.Services.TruckCatalog
                options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString"))
                       .EnableSensitiveDataLogging()
                       );
+            services.AddControllers().AddNewtonsoftJson(setupAction => {
+                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                setupAction.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }).AddXmlDataContractSerializerFormatters();
+
+            services.AddTransient<ITruckRepository, TruckRepository>();
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
