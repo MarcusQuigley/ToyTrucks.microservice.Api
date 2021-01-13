@@ -1,6 +1,7 @@
 using HessTrucks.Services.TruckCatalog.DbContexts;
 using HessTrucks.Services.TruckCatalog.Repositories;
 using Microsoft.AspNetCore.Builder;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -40,14 +41,17 @@ namespace HessTrucks.Services.TruckCatalog
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddTransient<ITruckRepository, TruckRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HessTrucks.Services.TruckCatalog", Version = "v1" });
             });
-           
-        }
+
+          }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,5 @@
-﻿using HessTrucks.Services.TruckCatalog.Repositories;
+﻿using AutoMapper;
+using HessTrucks.Services.TruckCatalog.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,19 +16,22 @@ namespace HessTrucks.Services.TruckCatalog.Controllers
     {
         private readonly ITruckRepository _truckService;
         private readonly ILogger<TruckController> _logger;
+        private readonly IMapper _mapper;
 
-        public TruckController(ITruckRepository truckService, ILogger<TruckController> logger)
+        public TruckController(ITruckRepository truckService, ILogger<TruckController> logger, IMapper mapper)
         {
             _truckService = truckService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Route("{categoryId:int}")]
-        public async Task<ActionResult> TrucksByCategoryId(int categoryId)
+        public async Task<ActionResult<IEnumerable<Models.TruckDto>>> TrucksByCategoryId(int categoryId)
         {
             var trucks = await _truckService.GetTrucksByCategoryId(categoryId);
-            return Ok(trucks);
+            var trucksDtos = _mapper.Map<IEnumerable<Models.TruckDto>>(trucks);
+            return Ok(trucksDtos);
 
 
         }
