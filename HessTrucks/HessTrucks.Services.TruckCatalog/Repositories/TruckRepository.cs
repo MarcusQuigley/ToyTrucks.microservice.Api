@@ -36,8 +36,10 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
             try
             {
                 var trucks = await _context.Trucks
+                             .Where(t=>t.Categories.All(c=>c.CategoryId == categoryId))
                              .Include(t => t.Photos)
-                             .Include(t => t.Categories.Where(c => c.CategoryId == categoryId))
+                             .Include(t=>t.Categories)
+                             .AsSplitQuery()
                              .ToListAsync();
               
                 return trucks;
