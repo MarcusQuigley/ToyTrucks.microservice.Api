@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{686CF6F3-8B19-4BF0-B506-E75E7258D7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HessTrucks.Services.TruckCatalog", "HessTrucks.Services.TruckCatalog\HessTrucks.Services.TruckCatalog.csproj", "{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HessTrucks.Services.TruckCatalog", "HessTrucks.Services.TruckCatalog\HessTrucks.Services.TruckCatalog.csproj", "{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HessTrucks.Web", "HessTrucks.Web\HessTrucks.Web.csproj", "{8D762804-25DB-47E2-8C3E-8BBFA7643F72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +21,17 @@ Global
 		{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D762804-25DB-47E2-8C3E-8BBFA7643F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D762804-25DB-47E2-8C3E-8BBFA7643F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D762804-25DB-47E2-8C3E-8BBFA7643F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D762804-25DB-47E2-8C3E-8BBFA7643F72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577} = {3A9BC86D-9B92-4D6D-99BA-02C86C817158}
+		{8D762804-25DB-47E2-8C3E-8BBFA7643F72} = {686CF6F3-8B19-4BF0-B506-E75E7258D7AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E911BE1-E6F9-4DAC-AD8D-617AA07DC74D}
