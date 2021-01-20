@@ -1,3 +1,4 @@
+using HessTrucks.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +25,10 @@ namespace HessTrucks.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
+            services.AddGrpcClient<Trucks.TrucksClient>(o =>
+                o.Address = new Uri(Configuration["ApiConfigs:TruckCatalog:Uri"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

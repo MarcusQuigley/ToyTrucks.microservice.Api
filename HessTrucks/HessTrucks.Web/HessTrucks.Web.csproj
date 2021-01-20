@@ -5,11 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Pages\Minis\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\truckcatalog.proto" GrpcServices="Client">
+      <Link>Protos\truckcatalog.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

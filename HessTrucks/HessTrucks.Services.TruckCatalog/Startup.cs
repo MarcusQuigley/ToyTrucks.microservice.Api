@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HessTrucks.Services.TruckCatalog.Services;
 
 namespace HessTrucks.Services.TruckCatalog
 {
@@ -46,6 +47,7 @@ namespace HessTrucks.Services.TruckCatalog
 
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
+            services.AddGrpc();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HessTrucks.Services.TruckCatalog", Version = "v1" });
@@ -70,7 +72,8 @@ namespace HessTrucks.Services.TruckCatalog
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers(); //rest
+                endpoints.MapGrpcService<TruckGrpcService>(); // grpc
             });
          }
     }
