@@ -4,14 +4,16 @@ using HessTrucks.Services.TruckCatalog.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HessTrucks.Services.TruckCatalog.Migrations
 {
     [DbContext(typeof(TruckCatalogDbContext))]
-    partial class TruckCatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210120215926_AddIsMiniColumnToCategory")]
+    partial class AddIsMiniColumnToCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +44,7 @@ namespace HessTrucks.Services.TruckCatalog.Migrations
                         .UseIdentityColumn();
 
                     b.Property<bool>("IsMiniTruck")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -80,13 +80,10 @@ namespace HessTrucks.Services.TruckCatalog.Migrations
                 {
                     b.Property<Guid>("TruckId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NewID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Damaged")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("DefaultPhotoPath")
                         .HasColumnType("nvarchar(max)");
@@ -95,9 +92,7 @@ namespace HessTrucks.Services.TruckCatalog.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Hidden")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -109,9 +104,7 @@ namespace HessTrucks.Services.TruckCatalog.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");

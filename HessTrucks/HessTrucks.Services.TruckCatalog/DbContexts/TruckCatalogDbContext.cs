@@ -30,8 +30,23 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
             {
                 property.SetColumnType("decimal(18,2)");
             }
+            modelBuilder.Entity<Truck>()
+                .Property(t => t.TruckId)
+                .HasDefaultValueSql("NewID()");
+            modelBuilder.Entity<Truck>()
+                .Property(t => t.Damaged)
+                .HasDefaultValue(false);
+            modelBuilder.Entity<Truck>()
+               .Property(t => t.Hidden)
+               .HasDefaultValue(false);
+            modelBuilder.Entity<Truck>()
+              .Property(t => t.Quantity)
+              .HasDefaultValue(1);
 
-            //modelBuilder.Entity<Truck>()
+            modelBuilder.Entity<Category>()
+              .Property(t => t.IsMiniTruck)
+              .HasDefaultValue(false);
+
             //    .HasMany(t => t.Photos)
             //    .WithOne(prop => prop.Truck)
             //    .IsRequired();

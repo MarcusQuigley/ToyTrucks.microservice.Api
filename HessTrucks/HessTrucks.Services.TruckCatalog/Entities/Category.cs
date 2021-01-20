@@ -13,7 +13,7 @@ namespace HessTrucks.Services.TruckCatalog.Entities
         }
         public int CategoryId { get; set; }
         public string Name { get; set; }
-      //  public bool IsMiniTruck { get; set; }
+        public bool IsMiniTruck { get; set; }
         public int Order { get; set; }
         public virtual ICollection<Truck> Trucks { get; set; }
     }
