@@ -12,16 +12,17 @@ namespace HessTrucks.Web.Pages.Toys
     {
         private readonly Trucks.TrucksClient _truckService;
        
-        public IList<Truck> Trucks { get; set; }
+        public IEnumerable<Truck> Trucks { get; set; }
         public IndexModel(Trucks.TrucksClient truckService)
         {
             _truckService = truckService;
         }
-        public async  void OnGet()
+        public async  Task<IActionResult> OnGet()
         {
             var response =await _truckService.GetAllTrucksAsync(new GetAllTrucksRequest());
             //var response =   _truckService.GetAllTrucks(new GetAllTrucksRequest());
             Trucks = response.Trucks;
+            return Page();
         }
     }
 }

@@ -4,4 +4,16 @@
 }
 
 <h1>List of trucks</h1>
-@Model.Trucks.Count
+<table class="table">
+    @{ 
+        foreach(var truck in Model.Trucks)
+        {
+        <tr>
+            <td><a href="">@truck.Name</a></td>
+            <td>@truck.Year</td>
+            <td>@truck.Price</td>
+            <td>@truck.DefaultPhotoPath</td>
+        </tr>
+        }
+    }
+</table>
