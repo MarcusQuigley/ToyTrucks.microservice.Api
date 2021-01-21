@@ -14,6 +14,8 @@ namespace HessTrucks.Services.TruckCatalog.Mapping
             CreateMap<Category, Models.CategoryDto>();
             CreateMap<Models.CategoryDto, Category>()
                 .ReverseMap();
+
+            CreateMap<Category, HessTrucks.Grpc.Category>();
         }
     }
 }

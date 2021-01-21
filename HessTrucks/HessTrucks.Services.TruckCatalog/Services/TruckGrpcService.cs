@@ -13,6 +13,7 @@ namespace HessTrucks.Services.TruckCatalog.Services
     public class TruckGrpcService : Trucks.TrucksBase
     {
         private readonly ITruckRepository _truckService;
+        private readonly ICategoryRepository _categoryService;
         private readonly ILogger<TruckGrpcService> _logger;
         private readonly IMapper _mapper;
         public TruckGrpcService(ITruckRepository truckService,
@@ -32,6 +33,18 @@ namespace HessTrucks.Services.TruckCatalog.Services
             _logger.LogWarning("Got {0} trucks",trucks.Count());
              
             response.Trucks.Add(_mapper.Map<List<Truck>>(trucks));
+
+            return response;
+        }
+
+        public override async Task<GetCategoriesResponse> GetAllCategoriesBySize(GetAllCategoriesBySizeRequest request, ServerCallContext context)
+        {
+            var response = new GetCategoriesResponse();
+
+            var categories = await _categoryService.GetGategoriesBySize(request.IsMini);
+            _logger.LogWarning("Got {0} categories", categories.Count());
+
+            response.Categories.Add(_mapper.Map<List<Category>>(categories));
 
             return response;
         }

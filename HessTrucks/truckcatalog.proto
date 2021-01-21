@@ -9,6 +9,8 @@ service Trucks{
 	rpc GetAllTrucks (GetAllTrucksRequest) returns (GetAllTrucksResponse){}
 	rpc GetAllTrucksByCategoryId (GetAllTrucksByCategoryIdRequest) returns (GetAllTrucksResponse){}
 	rpc GetTruckById (GetTruckRequest) returns (GetTruckByTruckIdResponse){}
+	rpc GetAllCategories(GetAllCategoriesRequest) returns (GetCategoriesResponse){}
+	rpc GetAllCategoriesBySize(GetAllCategoriesBySizeRequest) returns (GetCategoriesResponse){}
 }
 
 message GetAllTrucksRequest{}
@@ -29,6 +31,17 @@ message GetTruckByTruckIdResponse{
 	Truck Truck = 1;
 }
 
+message GetAllCategoriesRequest{}
+
+message GetAllCategoriesBySizeRequest{
+	bool IsMini = 1;
+}
+
+
+message GetCategoriesResponse{
+	repeated Category Categories = 1;
+}
+
 message Truck{
 	string TruckId = 1;
 	string Name = 2;
@@ -40,4 +53,10 @@ message Truck{
 	bool Hidden = 8;
 	bool Damaged = 9;
 	string DefaultPhotoPath = 10;
+}
+
+message Category{
+	int32 CategoryId = 1;
+	string Name = 2;
+	int32 Order = 3;
 }
