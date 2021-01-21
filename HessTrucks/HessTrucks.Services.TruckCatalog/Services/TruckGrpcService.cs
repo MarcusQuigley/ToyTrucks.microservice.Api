@@ -48,5 +48,15 @@ namespace HessTrucks.Services.TruckCatalog.Services
 
             return response;
         }
+
+        public override async Task<GetTruckByTruckIdResponse> GetTruckById(GetTruckRequest request, ServerCallContext context)
+        {
+            if (!Guid.TryParse(request.TruckId, out Guid truckId))
+                throw new ArgumentException($"{nameof(request.TruckId)} is not a valid Guid");
+            var response = new GetTruckByTruckIdResponse();
+            var truck = await _truckService.GetTruckById(truckId);
+            response.Truck = _mapper.Map<Truck>(truck);
+            return response;
+        }
     }
 }

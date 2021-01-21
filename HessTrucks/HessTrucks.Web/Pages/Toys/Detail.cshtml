@@ -1,0 +1,21 @@
+﻿@page "{truckId}"
+@model HessTrucks.Web.Pages.Toys.DetailModel
+@{
+
+}
+
+<h2>@Model.Truck.Name</h2>
+<div>
+    Id: @Model.Truck.TruckId
+</div>
+<div>
+    Description: @Model.Truck.Description
+</div>
+
+<div>
+    Price: @Model.Truck.Price
+</div>
+<div>
+       @Model.Truck.DefaultPhotoPath
+</div>
+<a asp-page="./Index" class="btn btn-default" >Trucks</a>
