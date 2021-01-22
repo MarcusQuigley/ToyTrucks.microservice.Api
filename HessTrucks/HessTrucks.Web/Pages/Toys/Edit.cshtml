@@ -1,0 +1,34 @@
+﻿@page "{truckId}"
+@model HessTrucks.Web.Pages.Toys.EditModel
+@{
+}
+<h2>Editing @Model.Truck.Name</h2>
+<form method="post">
+    <input type="hidden" asp-for="Truck.TruckId" />
+    <div class="form-group">
+        <label asp-for="Truck.Name"> </label>
+        <input type="text" asp-for="Truck.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Truck.Description"> </label>
+        <input type="text" asp-for="Truck.Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Truck.Year"> </label>
+        <input type="text" asp-for="Truck.Year" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Truck.Quantity"> </label>
+        <input type="text" asp-for="Truck.Quantity" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Truck.Price"> </label>
+        <input type="text" asp-for="Truck.Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Truck.PreviousPrice"> </label>
+        <input type="text" asp-for="Truck.PreviousPrice" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

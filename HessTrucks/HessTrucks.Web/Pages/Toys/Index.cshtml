@@ -16,7 +16,13 @@
             <td>@truck.Year</td>
             <td>@truck.Price</td>
             <td>@truck.DefaultPhotoPath</td>
-             
+            <td>
+                <a asp-page="./Edit"
+                   asp-route-truckId="@truck.TruckId">
+                    <i class="glyphicon glyphicon-edit">Edit</i>
+
+                </a>
+            </td>
         </tr>
         }
     }
