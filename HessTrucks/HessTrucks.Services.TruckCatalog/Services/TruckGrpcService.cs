@@ -58,5 +58,26 @@ namespace HessTrucks.Services.TruckCatalog.Services
             response.Truck = _mapper.Map<Truck>(truck);
             return response;
         }
+        public override async Task<AddTruckResponse> AddTruck(AddTruckRequest request, ServerCallContext context)
+        {
+            var response = new AddTruckResponse();
+            var truck =_mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
+            await _truckService.AddTruck(truck);
+            return response;
+        }
+
+        public override async Task<UpdateTruckResponse> UpdateTruck(UpdateTruckRequest request, ServerCallContext context)
+        {
+            var response = new UpdateTruckResponse();
+            var truck = _mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
+               _truckService.UpdateTruck(truck);
+            if (await _truckService.SaveChanges() != false)
+            {
+                return response;
+            }
+            throw new Exception("couldnt save");
+   
+        }
+
     }
 }

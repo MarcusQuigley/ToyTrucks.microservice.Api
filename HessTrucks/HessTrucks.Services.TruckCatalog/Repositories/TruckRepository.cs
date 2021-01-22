@@ -21,13 +21,13 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
 
         public async Task<Truck> GetTruckById(Guid truckId)
         {
-            
+
             var truck = await _context.Trucks
                                   .Include(t => t.Photos)
                                   .Where(t => t.TruckId == truckId)
                                   .FirstOrDefaultAsync();
             if (truck != null)
-                _logger.LogDebug("Received a truck with id of {truckId}",truckId);
+                _logger.LogDebug("Received a truck with id of {truckId}", truckId);
             return truck;
         }
 
@@ -36,12 +36,12 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
             try
             {
                 var trucks = await _context.Trucks
-                             .Where(t=>t.Categories.All(c=>c.CategoryId == categoryId))
+                             .Where(t => t.Categories.All(c => c.CategoryId == categoryId))
                              .Include(t => t.Photos)
-                             .Include(t=>t.Categories)
+                             .Include(t => t.Categories)
                              .AsSplitQuery()
                              .ToListAsync();
-              
+
                 return trucks;
             }
             catch (Exception e)
@@ -56,6 +56,33 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
             return await _context.Trucks
                             .Include(t => t.Photos)
                             .ToListAsync();
+
+        }
+
+        public async Task AddTruck(Truck truck)
+        {
+            if (truck == null)
+                throw new ArgumentNullException(nameof(truck));
+
+            await _context.Trucks.AddAsync(truck);
+        }
+
+        public bool HasChanges()
+        {
+            return _context.ChangeTracker.HasChanges();
+        }
+
+        public async Task<bool> SaveChanges()
+        {
+            var save = await _context.SaveChangesAsync();
+            return save >= 0;
+            //return await _context.SaveChangesAsync() >= 0;
+        }
+
+        public void UpdateTruck(Truck truck)
+        {
+            var entity = _context.Trucks.Attach(truck);
+            entity.State = EntityState.Modified;
 
         }
     }

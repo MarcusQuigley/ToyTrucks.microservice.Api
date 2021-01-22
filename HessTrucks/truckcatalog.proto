@@ -11,6 +11,20 @@ service Trucks{
 	rpc GetTruckById (GetTruckRequest) returns (GetTruckByTruckIdResponse){}
 	rpc GetAllCategories(GetAllCategoriesRequest) returns (GetCategoriesResponse){}
 	rpc GetAllCategoriesBySize(GetAllCategoriesBySizeRequest) returns (GetCategoriesResponse){}
+	rpc AddTruck(AddTruckRequest) returns (AddTruckResponse){}
+	rpc UpdateTruck(UpdateTruckRequest) returns (UpdateTruckResponse){}
+}
+
+message AddTruckRequest{
+	Truck truck = 1;
+}
+message AddTruckResponse{}
+
+message UpdateTruckRequest{
+	Truck truck = 1;
+}
+message UpdateTruckResponse{
+	Truck truck = 1;
 }
 
 message GetAllTrucksRequest{}

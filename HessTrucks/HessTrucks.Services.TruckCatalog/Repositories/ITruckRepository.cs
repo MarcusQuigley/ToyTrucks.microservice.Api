@@ -11,6 +11,9 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
         Task<IEnumerable<Truck>> GetTrucks();
         Task<IEnumerable<Truck>> GetTrucksByCategoryId(int categoryId);
         Task<Truck> GetTruckById(Guid truckId);
-        
+ 
+        Task AddTruck(Truck truck);
+        void UpdateTruck(Truck truck);
+        Task<bool> SaveChanges();
     }
 }
