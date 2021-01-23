@@ -34,6 +34,12 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
                 .Property(t => t.TruckId)
                 .HasDefaultValueSql("NewID()");
             modelBuilder.Entity<Truck>()
+              .Property(t => t.Name)
+              .IsRequired();
+            modelBuilder.Entity<Truck>()
+              .Property(t => t.Description)
+              .IsRequired();
+            modelBuilder.Entity<Truck>()
                 .Property(t => t.Damaged)
                 .HasDefaultValue(false);
             modelBuilder.Entity<Truck>()
@@ -42,6 +48,7 @@ namespace HessTrucks.Services.TruckCatalog.DbContexts
             modelBuilder.Entity<Truck>()
               .Property(t => t.Quantity)
               .HasDefaultValue(1);
+            
 
             modelBuilder.Entity<Category>()
               .Property(t => t.IsMiniTruck)
