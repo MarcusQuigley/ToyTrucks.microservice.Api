@@ -58,25 +58,52 @@ namespace HessTrucks.Services.TruckCatalog.Services
             response.Truck = _mapper.Map<Truck>(truck);
             return response;
         }
-        public override async Task<AddTruckResponse> AddTruck(AddTruckRequest request, ServerCallContext context)
+        public async override Task<AddTruckResponse> AddTruck(AddTruckRequest request, ServerCallContext context)
         {
-            var response = new AddTruckResponse();
-            var truck =_mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
-            await _truckService.AddTruck(truck);
+            var response = new AddTruckResponse()
+            {
+                Success = Protos.ReadingStatus.Failure
+            };
+
+            try
+            {
+                var truck = _mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
+                await _truckService.AddTruck(truck);
+                if (await _truckService.SaveChanges() == true)
+                    response.Success = Protos.ReadingStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Exception thrown during Add truck: {ex}", ex);
+                response.Message = "Exception thrown during Add truck";
+            }
+            
             return response;
         }
 
         public override async Task<UpdateTruckResponse> UpdateTruck(UpdateTruckRequest request, ServerCallContext context)
         {
-            var response = new UpdateTruckResponse();
-            var truck = _mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
-               _truckService.UpdateTruck(truck);
-            if (await _truckService.SaveChanges() != false)
+            var response = new UpdateTruckResponse() 
+            { 
+                Success = Protos.ReadingStatus.Failure 
+            };
+            try
             {
-                return response;
+                var truck = _mapper.Map<HessTrucks.Services.TruckCatalog.Entities.Truck>(request.Truck);
+                _truckService.UpdateTruck(truck);
+                if (await _truckService.SaveChanges() == true)
+                {
+                    response.Success = Protos.ReadingStatus.Success;
+                }
+
             }
-            throw new Exception("couldnt save");
-   
+            catch (Exception ex)
+            {
+                _logger.LogError("Exception thrown during update truck: {ex}", ex);
+                response.Message = "Exception thrown during update truck";
+            }
+            return response;
+
         }
 
     }

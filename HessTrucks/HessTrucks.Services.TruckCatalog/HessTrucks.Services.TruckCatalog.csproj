@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,6 +9,11 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Protos\enums.proto" />
+    <None Remove="Protos\TruckCatalog.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\truckcatalog.proto" GrpcServices="Server">
-      <Link>Protos\truckcatalog.proto</Link>
-    </Protobuf>
+    <Protobuf Include="Protos\enums.proto" GrpcServices="None" ProtoRoot="Protos\" />
+    <Protobuf Include="Protos\TruckCatalog.proto" GrpcServices="Server" ProtoRoot="Protos\"/>
   </ItemGroup>
 
 </Project>

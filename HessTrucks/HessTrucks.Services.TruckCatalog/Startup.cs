@@ -47,7 +47,9 @@ namespace HessTrucks.Services.TruckCatalog
 
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
-            services.AddGrpc();
+            services.AddGrpc(opt=> {
+                opt.EnableDetailedErrors = true;
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HessTrucks.Services.TruckCatalog", Version = "v1" });

@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+option csharp_namespace = "HessTrucks.Grpc";
+ import "enums.proto";
+
+package API;
+
+service Trucks{
+	rpc GetAllTrucks (GetAllTrucksRequest) returns (GetAllTrucksResponse){}
+	rpc GetAllTrucksByCategoryId (GetAllTrucksByCategoryIdRequest) returns (GetAllTrucksResponse){}
+	rpc GetTruckById (GetTruckRequest) returns (GetTruckByTruckIdResponse){}
+	rpc GetAllCategories(GetAllCategoriesRequest) returns (GetCategoriesResponse){}
+	rpc GetAllCategoriesBySize(GetAllCategoriesBySizeRequest) returns (GetCategoriesResponse){}
+	rpc AddTruck(AddTruckRequest) returns (AddTruckResponse){}
+	rpc UpdateTruck(UpdateTruckRequest) returns (UpdateTruckResponse){}
+}
+
+message AddTruckRequest{
+	Truck truck = 1;
+}
+message AddTruckResponse{
+	ReadingStatus success=1;
+	string message = 2;
+}
+
+message UpdateTruckRequest{
+	Truck truck = 1;
+}
+message UpdateTruckResponse{
+	Truck truck = 1;
+	ReadingStatus success=2;
+	string message = 3;
+}
+
+message GetAllTrucksRequest{}
+
+message GetAllTrucksResponse{
+	repeated Truck Trucks = 1;
+}
+
+message GetAllTrucksByCategoryIdRequest{
+	string CategoryId=1;
+}
+
+message GetTruckRequest{
+	string TruckId=1;
+}
+
+message GetTruckByTruckIdResponse{
+	Truck Truck = 1;
+}
+
+message GetAllCategoriesRequest{}
+
+message GetAllCategoriesBySizeRequest{
+	bool IsMini = 1;
+}
+
+
+message GetCategoriesResponse{
+	repeated Category Categories = 1;
+}
+
+message Truck{
+	string TruckId = 1;
+	string Name = 2;
+	int32 Year = 3;
+	string Description = 4;
+	double Price = 5;
+	double PreviousPrice = 6;
+	int32 Quantity = 7;
+	bool Hidden = 8;
+	bool Damaged = 9;
+	string DefaultPhotoPath = 10;
+}
+
+message Category{
+	int32 CategoryId = 1;
+	string Name = 2;
+	int32 Order = 3;
+}
