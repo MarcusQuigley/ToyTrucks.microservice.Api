@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HessTrucks.Services.TruckCatalog.Services;
+ 
 
 namespace HessTrucks.Services.TruckCatalog
 {
@@ -75,7 +75,7 @@ namespace HessTrucks.Services.TruckCatalog
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); //rest
-                endpoints.MapGrpcService<TruckGrpcService>(); // grpc
+             //   endpoints.MapGrpcService<TruckGrpcService>(); // grpc
             });
          }
     }

@@ -8,14 +8,17 @@
     <div class="form-group">
         <label asp-for="Truck.Name"> </label>
         <input type="text" asp-for="Truck.Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Truck.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Truck.Description"> </label>
         <input type="text" asp-for="Truck.Description" class="form-control" />
+        <span class="text-danger" asp-validation-for="Truck.Description"></span>
     </div>
     <div class="form-group">
         <label asp-for="Truck.Year"> </label>
         <input type="text" asp-for="Truck.Year" class="form-control" />
+        <span class="text-danger" asp-validation-for="Truck.Year"></span>
     </div>
     <div class="form-group">
         <label asp-for="Truck.Quantity"> </label>

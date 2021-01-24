@@ -13,13 +13,4 @@
     <Folder Include="Pages\Minis\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Protobuf Include="..\HessTrucks.Services.TruckCatalog\Protos\enums.proto" GrpcServices="None">
-      <Link>Protos\enums.proto</Link>
-    </Protobuf>
-    <Protobuf Include="..\HessTrucks.Services.TruckCatalog\Protos\TruckCatalog.proto" GrpcServices="Client">
-      <Link>Protos\TruckCatalog.proto</Link>
-    </Protobuf>
-  </ItemGroup>
-
 </Project>

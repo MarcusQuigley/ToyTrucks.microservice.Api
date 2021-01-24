@@ -12,11 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Protos\enums.proto" />
-    <None Remove="Protos\TruckCatalog.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
@@ -37,8 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\enums.proto" GrpcServices="None" ProtoRoot="Protos\" />
-    <Protobuf Include="Protos\TruckCatalog.proto" GrpcServices="Server" ProtoRoot="Protos\"/>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
