@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HessTrucks.Services.TruckCatalog.Controllers
 {
-    [Route("api/Truck")]
+    [Route("api/trucks")]
     [ApiController]
     public class TruckController : ControllerBase
     {

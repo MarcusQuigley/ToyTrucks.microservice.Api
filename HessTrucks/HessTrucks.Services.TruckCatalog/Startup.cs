@@ -42,14 +42,15 @@ namespace HessTrucks.Services.TruckCatalog
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddTransient<ITruckRepository, TruckRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //services.AddTransient<TruckCatalogDbContext>();
             services.AddControllers();
-            services.AddGrpc(opt=> {
-                opt.EnableDetailedErrors = true;
-            });
+            //services.AddGrpc(opt=> {
+            //    opt.EnableDetailedErrors = true;
+            //});
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HessTrucks.Services.TruckCatalog", Version = "v1" });

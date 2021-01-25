@@ -17,12 +17,12 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Category>> GetGategories()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetGategoriesBySize(bool isMini = false)
+        public async Task<IEnumerable<Category>> GetCategoriesBySize(bool isMini = false)
         {
             return await _context.Categories
                             .Where(c=>c.IsMiniTruck == isMini)

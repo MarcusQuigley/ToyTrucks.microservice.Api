@@ -1,6 +1,8 @@
+using HessTrucks.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,9 +26,22 @@ namespace HessTrucks.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllersWithViews()
-                    .AddRazorRuntimeCompilation();
-               }
+            services.AddControllersWithViews(config =>
+            {
+                //config.OutputFormatters.Insert(0, new XmlSerializerOutputFormatter());
+                //config.InputFormatters.Insert(0, new XmlSerializerInputFormatter(config));
+            })
+            .AddRazorRuntimeCompilation();
+
+            services.AddHttpClient<ITruckCatalogService, TruckCatalogService>(config =>
+            {
+                config.BaseAddress = new Uri(Configuration["ApiConfigs:TruckCatalog:Uri"]);
+             //   config.Timeout = new TimeSpan(0, 0, 30);
+
+            });
+        }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

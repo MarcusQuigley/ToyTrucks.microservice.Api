@@ -8,7 +8,7 @@ namespace HessTrucks.Services.TruckCatalog.Repositories
 {
     public interface ICategoryRepository
     {
-        Task<IEnumerable<Category>> GetGategories();
-        Task<IEnumerable<Category>> GetGategoriesBySize(bool isMini = false);
+        Task<IEnumerable<Category>> GetCategories();
+        Task<IEnumerable<Category>> GetCategoriesBySize(bool isMini = false);
     }
 }
