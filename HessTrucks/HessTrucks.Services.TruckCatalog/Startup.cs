@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
- 
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace HessTrucks.Services.TruckCatalog
 {
@@ -32,23 +32,29 @@ namespace HessTrucks.Services.TruckCatalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddControllers()                
+            //    .AddNewtonsoftJson(setupAction => {
+            //    setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //    setupAction.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //}).AddXmlDataContractSerializerFormatters();
+
+            services.AddControllers(options=> {
+                options.ReturnHttpNotAcceptable = true;
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+            })//.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            ;
+
             services.AddDbContext<TruckCatalogDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString"))
-                      .EnableSensitiveDataLogging()
-                      );
-            services.AddControllers()                
-                .AddNewtonsoftJson(setupAction => {
-                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                setupAction.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            }).AddXmlDataContractSerializerFormatters();
+              options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString"))
+                     .EnableSensitiveDataLogging()
+                     );
 
             services.AddScoped<ITruckRepository, TruckRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-            //services.AddTransient<TruckCatalogDbContext>();
-            services.AddControllers();
             //services.AddGrpc(opt=> {
             //    opt.EnableDetailedErrors = true;
             //});

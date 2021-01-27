@@ -43,30 +43,30 @@ namespace HessTrucks.Web.Services
             try
             {
 
-            
-            var response =await _client.GetAsync("api/categories");
-            response.EnsureSuccessStatusCode();
+                var response = await _client.GetAsync("api/categories");
+                response.EnsureSuccessStatusCode();
 
-            
+               var content = await response.Content.ReadAsStringAsync();
 
-            var content = await response.Content.ReadAsStringAsync();
-           
-            _logger.LogInformation(response.Content.Headers.ContentType.MediaType);
-            if (response.Content.Headers.ContentType.MediaType == "application/json")
-                categories = JsonSerializer.Deserialize<IList<Category>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive=true});
-            else if (response.Content.Headers.ContentType.MediaType == "application/xml")
-            {
-                categories = (List<Category>) new XmlSerializer(typeof(List<Category>)).Deserialize(new StringReader(content));
-            }
-            _logger.LogInformation("categories count: {0}", categories?.Count());
-            _logger.LogInformation("categories 1: {0}", categories?[0]?.Name);
-           
 
+                _logger.LogInformation(response.Content.Headers.ContentType.MediaType);
+                if (response.Content.Headers.ContentType.MediaType == "application/json")
+                {
+                    categories = JsonSerializer.Deserialize<List<Category>>(content,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                else if (response.Content.Headers.ContentType.MediaType == "application/xml")
+                {
+                    var serializer = new XmlSerializer(typeof(List<Category>) );
+                    categories = (List<Models.Api.Category>)serializer.Deserialize(new StringReader(content));
+                }
+                _logger.LogInformation("categories count: {0}", categories?.Count());
+               _logger.LogInformation("categories 1: {0}", categories?[0]?.Name);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError("Error",ex.InnerException);
+                _logger.LogError("Error {0}", ex.InnerException?.ToString());
             }
             return categories;
         }
