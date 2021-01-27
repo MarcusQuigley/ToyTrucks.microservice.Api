@@ -36,12 +36,13 @@ namespace HessTrucks.Services.TruckCatalog
                options.UseSqlServer(Configuration.GetConnectionString("TruckDBConnectionString"))
                       .EnableSensitiveDataLogging()
                       );
-            services.AddControllers().AddNewtonsoftJson(setupAction => {
+            services.AddControllers()                
+                .AddNewtonsoftJson(setupAction => {
                 setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 setupAction.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             }).AddXmlDataContractSerializerFormatters();
 
-            services.AddTransient<ITruckRepository, TruckRepository>();
+            services.AddScoped<ITruckRepository, TruckRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

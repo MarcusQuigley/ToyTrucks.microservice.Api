@@ -33,5 +33,12 @@ namespace HessTrucks.Services.TruckCatalog.Controllers
             return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
+        {
+            var categories = await _service.GetCategories();
+            return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
+        }
+
     }
 }
