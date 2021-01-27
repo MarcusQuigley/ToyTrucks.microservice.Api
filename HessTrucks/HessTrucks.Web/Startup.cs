@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace HessTrucks.Web
@@ -33,12 +34,18 @@ namespace HessTrucks.Web
             })
             .AddRazorRuntimeCompilation();
 
-            services.AddHttpClient<ITruckCatalogService, TruckCatalogService>(config =>
-            {
-                config.BaseAddress = new Uri(Configuration["ApiConfigs:TruckCatalog:Uri"]);
-             //   config.Timeout = new TimeSpan(0, 0, 30);
+            services.AddHttpClient<ITruckCatalogService, TruckCatalogService>();// (config =>
+            //{
+            //    config.BaseAddress = new Uri(Configuration["ApiConfigs:TruckCatalog:Uri"]);
+            //    config.Timeout = new TimeSpan(0, 0, 30);
+            //    config.DefaultRequestHeaders.Clear();//best practice
+            //    config.DefaultRequestHeaders.Accept.Add(
+            //        new MediaTypeWithQualityHeaderValue("application/json"));
+            //    //config.DefaultRequestHeaders.Accept.Add(
+            //    //    new MediaTypeWithQualityHeaderValue("application/xml"));
 
-            });
+
+            //});
         }
 
         

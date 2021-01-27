@@ -16,6 +16,7 @@ namespace HessTrucks.Web.Pages.Toys
         private readonly ILogger<IndexModel> _logger;
 
         public IEnumerable<Truck> Trucks { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
         public IndexModel(ITruckCatalogService truckCatalogService, ILogger<IndexModel> logger)
         {
             _truckCatalogService = truckCatalogService;
@@ -25,9 +26,8 @@ namespace HessTrucks.Web.Pages.Toys
         {
             Trucks = await _truckCatalogService.GetTrucksByCategoryId(3);
 
-            var categories = await _truckCatalogService.GetCategoriesBySize(false);
-            foreach (var category in categories)
-                _logger.LogInformation("Name: {0}, Order: {1}", category.Name, category.Order);
+            Categories = await _truckCatalogService.GetCategories();
+          
             return Page();
  
         }

@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HessTrucks.Services.TruckCatalog", "HessTrucks.Services.TruckCatalog\HessTrucks.Services.TruckCatalog.csproj", "{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HessTrucks.Web", "HessTrucks.Web\HessTrucks.Web.csproj", "{8D762804-25DB-47E2-8C3E-8BBFA7643F72}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577} = {4336A8A8-F9D9-4ADF-9FBB-A8C7FDE96577}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unused", "Unused", "{DF18827B-9C6A-4433-94D2-61C26F1E7A15}"
 	ProjectSection(SolutionItems) = preProject

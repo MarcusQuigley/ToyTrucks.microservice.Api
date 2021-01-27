@@ -1,7 +1,15 @@
 ﻿@page
 @model HessTrucks.Web.Pages.Toys.IndexModel
 @{
+    var categories = Model.Categories.Select(c =>
+        new SelectListItem(c.Name, c.CategoryId.ToString()))
+        .ToList();
 }
+<div class="row mt-5 mb-3">
+    <form  >
+        <select asp-items="categories"></select>
+    </form>
+</div>
 
 <h1>List of trucks</h1>
 <table class="table">
