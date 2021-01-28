@@ -43,7 +43,7 @@ namespace HessTrucks.Services.TruckCatalog
                 options.ReturnHttpNotAcceptable = true;
                 options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
-            })//.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            }) 
             ;
 
             services.AddDbContext<TruckCatalogDbContext>(options =>

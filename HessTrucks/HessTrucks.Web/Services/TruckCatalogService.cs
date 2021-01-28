@@ -26,10 +26,6 @@ namespace HessTrucks.Web.Services
             _client = client;
             _client.Timeout = new TimeSpan(0, 0, 30);
             _client.BaseAddress = new Uri(_configuration["ApiConfigs:TruckCatalog:Uri"]);
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json", 0.7));
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.8));
-
-
         }
 
         public Task<Truck> AddTruck(Truck truck)
@@ -39,43 +35,15 @@ namespace HessTrucks.Web.Services
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            IList<Category> categories = null;
-            try
-            {
-
-                var response = await _client.GetAsync("api/categories");
-                response.EnsureSuccessStatusCode();
-
-               var content = await response.Content.ReadAsStringAsync();
-
-
-                _logger.LogInformation(response.Content.Headers.ContentType.MediaType);
-                if (response.Content.Headers.ContentType.MediaType == "application/json")
-                {
-                    categories = JsonSerializer.Deserialize<List<Category>>(content,
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                }
-                else if (response.Content.Headers.ContentType.MediaType == "application/xml")
-                {
-                    var serializer = new XmlSerializer(typeof(List<Category>) );
-                    categories = (List<Models.Api.Category>)serializer.Deserialize(new StringReader(content));
-                }
-                _logger.LogInformation("categories count: {0}", categories?.Count());
-               _logger.LogInformation("categories 1: {0}", categories?[0]?.Name);
-            }
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Error {0}", ex.InnerException?.ToString());
-            }
-            return categories;
-        }
+            var categories = await GetDataAsJson<IEnumerable<Category>>($"api/categories");
+             return categories;
+         }
 
         public async Task<IEnumerable<Category>> GetCategoriesBySize(bool isMini)
         {
-            var response =await _client.GetAsync($"api/categories/{isMini}");
-            return await response.ReadContentAs<IEnumerable<Category>>();
-         }
+            var categories =await GetDataAsJson<IEnumerable<Category>>($"api/categories/{isMini}");
+            return categories;
+        }
 
         public async Task<Truck> GetTruck(Guid truckId)
         {
@@ -89,13 +57,32 @@ namespace HessTrucks.Web.Services
 
         public async Task<IEnumerable<Truck>> GetTrucksByCategoryId(int categoryId)
         {
-            var response = await _client.GetAsync($"api/trucks/{categoryId}");
-            return await response.ReadContentAs<List<Truck>>();
+            var trucks = await GetDataAsJson<IEnumerable<Truck>>($"api/trucks/{categoryId}");
+            return trucks;
         }
 
         public Task<Truck> UpdateTruck(Truck truck)
         {
             throw new NotImplementedException();
+        }
+
+        async Task<T> GetDataAsJson<T>(string requestUri)
+        {
+            T data = default;
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            try
+            {
+                var response = await _client.SendAsync(request);
+                data = await response.DeserializeJson<T>();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error {0}", e.InnerException?.ToString());
+            }
+            return data;
         }
     }
     
