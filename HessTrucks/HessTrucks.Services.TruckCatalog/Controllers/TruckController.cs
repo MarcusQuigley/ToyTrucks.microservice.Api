@@ -35,8 +35,23 @@ namespace HessTrucks.Services.TruckCatalog.Controllers
             var trucks = await _truckService.GetTrucksByCategoryId(categoryId);
             var trucksDtos = _mapper.Map<IEnumerable<Models.TruckDto>>(trucks);
             return Ok(trucksDtos);
+         }
 
+        [HttpGet]
+        [Route("{truckId:guid}")]
+        public async Task<ActionResult<Models.TruckDto>> GetTruck(Guid truckId)
+        {
+            var truck = await _truckService.GetTruckById(truckId);
+            var truckDto = _mapper.Map<Models.TruckDto>(truck);
+            return Ok(truckDto);
+        }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Models.TruckDto>>> GetTrucks()
+        {
+            var trucks = await _truckService.GetTrucks();
+            var trucksDtos = _mapper.Map<IEnumerable<Models.TruckDto>>(trucks);
+            return Ok(trucksDtos);
         }
 
         [HttpGet]

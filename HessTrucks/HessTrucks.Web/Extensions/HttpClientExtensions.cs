@@ -10,8 +10,7 @@ using System.Xml.Serialization;
 namespace HessTrucks.Web.Extensions
 {
     public static class HttpClientExtensions
-    {
-
+    { 
         public static async Task<T> DeserializeJson<T>(this HttpResponseMessage response)
         {
             if (response == null)
@@ -32,6 +31,7 @@ namespace HessTrucks.Web.Extensions
             var xmlDeserializer = new XmlSerializer(typeof(T));
             return (T)xmlDeserializer.Deserialize(new StringReader(contentAsString));
         }
+
     }
 }
 

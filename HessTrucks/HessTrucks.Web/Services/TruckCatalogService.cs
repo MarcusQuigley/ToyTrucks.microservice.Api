@@ -47,12 +47,12 @@ namespace HessTrucks.Web.Services
 
         public async Task<Truck> GetTruck(Guid truckId)
         {
-            throw new NotImplementedException();
+            return await GetDataAsJson<Truck>($"api/trucks/{truckId}");
         }
 
         public async Task<IEnumerable<Truck>> GetTrucks(Guid truckId)
         {
-            throw new NotImplementedException();
+            return await GetDataAsJson<IEnumerable<Truck>>("api/trucks");
         }
 
         public async Task<IEnumerable<Truck>> GetTrucksByCategoryId(int categoryId)
@@ -69,9 +69,8 @@ namespace HessTrucks.Web.Services
         async Task<T> GetDataAsJson<T>(string requestUri)
         {
             T data = default;
-
+            _client.DefaultRequestHeaders.Accept.Clear();
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            request.Headers.Accept.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             try
             {
@@ -86,4 +85,5 @@ namespace HessTrucks.Web.Services
         }
     }
     
+
 }
