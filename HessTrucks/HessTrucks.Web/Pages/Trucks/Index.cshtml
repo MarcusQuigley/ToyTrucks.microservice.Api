@@ -1,5 +1,5 @@
 ﻿@page
-@model HessTrucks.Web.Pages.Toys.IndexModel
+@model HessTrucks.Web.Pages.Trucks.IndexModel
 @{
     var categories = Model.Categories.Select(c =>
         new SelectListItem(c.Name, c.CategoryId.ToString()))
@@ -35,3 +35,8 @@
         }
     }
 </table>
+<div>
+    <button class="btn btn-default" asp-page="./Edit">New</button>
+
+    <a asp-page="./Edit" class="btn btn-primary">New</a>
+</div>

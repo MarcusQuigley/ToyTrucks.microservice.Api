@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HessTrucks.Web.Models.Api;
+using HessTrucks.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace HessTrucks.Web.Pages.Toys
+namespace HessTrucks.Web.Pages.Trucks
 {
     public class EditModel : PageModel
     {
-  
+        private readonly ITruckCatalogService _service;
         private readonly ILogger<EditModel> _logger;
         public Truck Truck { get; set; }
-        public EditModel(  ILogger<EditModel> logger)
+        public EditModel(ILogger<EditModel> logger, ITruckCatalogService service)
         {
-           
             _logger = logger;
+            _service = service;
         }
-         
-        public IActionResult OnGet(string truckId)
-        {
-            if (!string.IsNullOrEmpty(truckId))
-            {
-                //var request = new GetTruckRequest();
-                //request.TruckId = truckId;
-                //var response = _truckService.GetTruckById(request);
-               
-                //Truck = response.Truck;
-                //if (response.Truck != null)
-                //    return Page();
-            }
-            return RedirectToPage("../NotFound");
 
+        public async Task<IActionResult> OnGet(Guid truckId)
+        {
+            if (truckId == Guid.Empty)
+                throw new ArgumentNullException(nameof(truckId));
+
+            Truck = await _service.GetTruck(truckId);
+            if (Truck != null)
+                return Page();
+            return RedirectToPage("../NotFound");
         }
 
         public IActionResult OnPost( ) {
